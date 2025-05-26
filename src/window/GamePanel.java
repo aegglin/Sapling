@@ -1,3 +1,7 @@
+package window;
+
+import maptile.MapTileManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
 
     private Thread gameThread;
+    private MapTileManager mapTileManager;
 
     public GamePanel() {
         gameThread = new Thread(this);
@@ -23,6 +28,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
+
+        mapTileManager = new MapTileManager();
+
     }
 
     @Override
