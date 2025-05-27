@@ -19,9 +19,12 @@ public class GamePanel extends JPanel implements Runnable{
 
     private Thread gameThread;
     private MapTileManager mapTileManager;
+    private KeyHandler keyHandler;
 
     public GamePanel() {
         gameThread = new Thread(this);
+        keyHandler = new KeyHandler();
+        this.addKeyListener(keyHandler);
 
         // JPanel methods
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
