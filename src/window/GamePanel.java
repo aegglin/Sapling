@@ -1,5 +1,6 @@
 package window;
 
+import gameentity.Beetle;
 import maptile.MapTileManager;
 
 import javax.swing.*;
@@ -9,21 +10,23 @@ public class GamePanel extends JPanel implements Runnable{
 
     private static final int ORIGINAL_TILE_SIZE = 16;
     private static final int SCALE = 3;
-    private static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 48 x 48
     private static final int MAX_SCREEN_COL = 16;
     private static final int MAX_SCREEN_ROW = 12;
     private static final int FPS = 60;
 
+    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 48 x 48
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
 
+    public static final KeyHandler keyHandler = new KeyHandler();
+
+    public Beetle beetle;
+
     private Thread gameThread;
     private MapTileManager mapTileManager;
-    private KeyHandler keyHandler;
 
     public GamePanel() {
         gameThread = new Thread(this);
-        keyHandler = new KeyHandler();
         this.addKeyListener(keyHandler);
 
         // JPanel methods
@@ -32,15 +35,17 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
-        mapTileManager = new MapTileManager();
+        beetle = new Beetle(100, 100, 4);
 
+        mapTileManager = new MapTileManager();
+        gameThread.start();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.setColor(Color.YELLOW);
-        g2.fillRect(100, 100, TILE_SIZE, TILE_SIZE);
+
+        beetle.draw(g2);
         g2.dispose();
     }
 
@@ -55,6 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             lastTime = currentTime;
+
+            beetle.update();
+            repaint();
         }
     }
 }
