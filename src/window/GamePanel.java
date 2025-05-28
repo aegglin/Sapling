@@ -1,6 +1,7 @@
 package window;
 
 import gameentity.Beetle;
+import gameentity.Direction;
 import maptile.MapTileManager;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    private static final int ORIGINAL_TILE_SIZE = 16;
+    public static final int ORIGINAL_TILE_SIZE = 16;
     private static final int SCALE = 3;
     private static final int MAX_SCREEN_COL = 16;
     private static final int MAX_SCREEN_ROW = 12;
@@ -18,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
 
-    public static final KeyHandler keyHandler = new KeyHandler();
+    private static final KeyHandler keyHandler = new KeyHandler();
 
     public Beetle beetle;
 
@@ -35,34 +36,55 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
-        beetle = new Beetle(100, 100, 4);
+        beetle = new Beetle(100, 100, 4, Direction.DOWN);
 
-        mapTileManager = new MapTileManager();
+        mapTileManager = new MapTileManager(this);
         gameThread.start();
+    }
+
+    public static KeyHandler getKeyHandler() {
+        return keyHandler;
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+        mapTileManager.draw(g2);
         beetle.draw(g2);
+
         g2.dispose();
+    }
+
+    public void update() {
+        beetle.update();
     }
 
     @Override
     public void run() {
-        double drawInterval = 1e9 / FPS;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
+        double drawInterval = 1e9 / FPS; //0.016666 seconds
+        double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gameThread != null) {
-            currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInterval;
-            lastTime = currentTime;
-
-            beetle.update();
+            //update positions and then repaint them in the correct locations
+            update();
             repaint();
+
+            double remainingTime = nextDrawTime - System.nanoTime();
+            remainingTime = remainingTime / 1e6; // Convert nanoseconds to milliseconds
+
+            if (remainingTime < 0) {
+                remainingTime = 0;
+            }
+
+            try {
+                Thread.sleep((long) remainingTime);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            nextDrawTime += drawInterval;
         }
     }
 }
