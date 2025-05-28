@@ -2,11 +2,13 @@ package maptile;
 
 import window.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class MapTileManager {
 
@@ -37,7 +39,7 @@ public class MapTileManager {
         mapTiles[2] = loadTileImage("Grass_16.png");
     }
 
-    public void draw(Graphics2D g2) {
+    public void drawAll(Graphics2D g2) {
         g2.drawImage(mapTiles[0].image, 0, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
         g2.drawImage(mapTiles[1].image, 48, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
         g2.drawImage(mapTiles[2].image, 96, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);

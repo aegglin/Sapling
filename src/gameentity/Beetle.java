@@ -3,7 +3,7 @@ package gameentity;
 import window.GamePanel;
 import window.KeyHandler;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import static gameentity.Direction.DOWN;
@@ -14,17 +14,14 @@ public class Beetle extends GameEntity {
     private KeyHandler keyHandler;
 
     public Beetle(int x, int y, int speed, Direction direction) {
-        keyHandler = GamePanel.getKeyHandler();
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
-        this.direction = direction;
-
+        super(x, y, speed, direction);
         super.loadImages("BeetleUpAnimated_16.png",
                 "BeetleDownAnimated_16.png",
                 "BeetleLeftAnimated_16.png",
                 "BeetleRightAnimated_16.png",
                 false);
+
+        keyHandler = GamePanel.getKeyHandler();
     }
 
     @Override
@@ -97,5 +94,4 @@ public class Beetle extends GameEntity {
         }
         g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
-
 }

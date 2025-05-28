@@ -1,6 +1,6 @@
 package window;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class GameWindow extends JFrame {
 
@@ -14,7 +14,6 @@ public class GameWindow extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
     }
 }
 

@@ -2,11 +2,13 @@ package gameentity;
 
 import window.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public abstract class GameEntity {
 
@@ -16,11 +18,21 @@ public abstract class GameEntity {
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public Direction direction;
 
+    public int spriteUpdateCount;
+    public int currentSpriteNumber;
+
     public abstract void update();
     public abstract void draw(Graphics2D g2);
 
-    public int spriteUpdateCount = 0;
-    public int currentSpriteNumber = 1;
+    public GameEntity(int x, int y, int speed, Direction direction) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.direction = direction;
+
+        spriteUpdateCount = 0;
+        currentSpriteNumber = 1;
+    }
 
     public void loadImages(String upSpriteSheetFileName,
                            String downSpriteSheetFileName,

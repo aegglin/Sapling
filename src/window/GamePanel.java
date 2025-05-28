@@ -4,8 +4,12 @@ import gameentity.Beetle;
 import gameentity.Direction;
 import maptile.MapTileManager;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -52,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        mapTileManager.draw(g2);
+        mapTileManager.drawAll(g2);
         beetle.draw(g2);
 
         g2.dispose();
