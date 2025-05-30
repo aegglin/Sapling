@@ -15,10 +15,10 @@ public class Beetle extends GameEntity {
 
     public Beetle(int x, int y, int speed, Direction direction) {
         super(x, y, speed, direction);
-        super.loadImages("BeetleUpAnimated_16.png",
-                "BeetleDownAnimated_16.png",
-                "BeetleLeftAnimated_16.png",
-                "BeetleRightAnimated_16.png",
+        super.loadImages("BeetleUpAnimated.png",
+                "BeetleDownAnimated.png",
+                "BeetleLeftAnimated.png",
+                "BeetleRightAnimated.png",
                 false);
 
         keyHandler = GamePanel.getKeyHandler();
