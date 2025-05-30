@@ -1,5 +1,6 @@
 package window;
 
+import gameentity.Bee;
 import gameentity.Beetle;
 import gameentity.Direction;
 import maptile.MapTileManager;
@@ -26,6 +27,8 @@ public class GamePanel extends JPanel implements Runnable{
     private static final KeyHandler keyHandler = new KeyHandler();
 
     public Beetle beetle;
+    private Bee bee1;
+    private Bee bee2;
 
     private Thread gameThread;
     private MapTileManager mapTileManager;
@@ -40,9 +43,12 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
-        beetle = new Beetle(100, 100, 4, Direction.DOWN);
-
         mapTileManager = new MapTileManager(this);
+
+        beetle = new Beetle(100, 100, 4, Direction.DOWN);
+        bee1 = new Bee(200, 200, 4, Direction.UP);
+        bee2 = new Bee(300, 300, 4, Direction.LEFT);
+
         gameThread.start();
     }
 
@@ -58,12 +64,16 @@ public class GamePanel extends JPanel implements Runnable{
 
         mapTileManager.drawAll(g2);
         beetle.draw(g2);
+        bee1.draw(g2);
+        bee2.draw(g2);
 
         g2.dispose();
     }
 
     public void update() {
         beetle.update();
+        bee1.update();
+        bee2.update();
     }
 
     @Override

@@ -1,7 +1,5 @@
 package gameentity;
 
-import window.GamePanel;
-
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -18,11 +16,12 @@ public abstract class GameEntity {
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public Direction direction;
 
-    public int spriteUpdateCount;
-    public int currentSpriteNumber;
+    protected int spriteUpdateCount;
+    protected int currentSpriteNumber;
 
-    public abstract void update();
-    public abstract void draw(Graphics2D g2);
+    protected abstract void update();
+    protected abstract void draw(Graphics2D g2);
+    protected abstract boolean isColliding(GameEntity gameEntity);
 
     public GameEntity(int x, int y, int speed, Direction direction) {
         this.x = x;
@@ -34,37 +33,39 @@ public abstract class GameEntity {
         currentSpriteNumber = 1;
     }
 
-    public void loadImages(String upSpriteSheetFileName,
-                           String downSpriteSheetFileName,
-                           String leftSpriteSheetFileName,
-                           String rightSpriteSheetFileName,
-                           boolean hasSpecial) {
+    public void loadImages(String up1FileName,
+                           String up2FileName,
+                           String up3FileName,
+                           String down1FileName,
+                           String down2FileName,
+                           String down3FileName,
+                           String right1FileName,
+                           String right2FileName,
+                           String right3FileName,
+                           String left1FileName,
+                           String left2FileName,
+                           String left3FileName) {
 
         try {
-            BufferedImage upSpriteSheet = ImageIO.read(new File("assets/" + upSpriteSheetFileName));
-            up1 = upSpriteSheet.getSubimage(0, 0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            up2 = upSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            if (hasSpecial) {
-                up3 = upSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE * 2, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
+            up1 = ImageIO.read(new File("assets/" + up1FileName));
+            up2 = ImageIO.read(new File("assets/" + up2FileName));
+            if (up3FileName != null) {
+                up3 = ImageIO.read(new File("assets/" + up3FileName));
             }
-
-            BufferedImage downSpriteSheet = ImageIO.read(new File("assets/" + downSpriteSheetFileName));            down1 = downSpriteSheet.getSubimage(0, 0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            down2 = downSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            if (hasSpecial) {
-                down3 = downSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE * 2, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
+            down1 = ImageIO.read(new File("assets/" + down1FileName));
+            down2 = ImageIO.read(new File("assets/" + down2FileName));
+            if (down3FileName != null) {
+                down3 = ImageIO.read(new File("assets/" + down3FileName));
             }
-
-            BufferedImage leftSpriteSheet = ImageIO.read(new File("assets/" + leftSpriteSheetFileName));
-            left1 = leftSpriteSheet.getSubimage(0, 0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            left2 = leftSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            if (hasSpecial) {
-                left3 = leftSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE * 2, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
+            right1 = ImageIO.read(new File("assets/" + right1FileName));
+            right2 = ImageIO.read(new File("assets/" + right2FileName));
+            if (right3FileName != null) {
+                right3 = ImageIO.read(new File("assets/" + right3FileName));
             }
-
-            BufferedImage rightSpriteSheet = ImageIO.read(new File("assets/" + rightSpriteSheetFileName));            right1 = rightSpriteSheet.getSubimage(0, 0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            right2 = rightSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
-            if (hasSpecial) {
-                right3 = rightSpriteSheet.getSubimage(0, GamePanel.ORIGINAL_TILE_SIZE * 2, GamePanel.ORIGINAL_TILE_SIZE, GamePanel.ORIGINAL_TILE_SIZE);
+            left1 = ImageIO.read(new File("assets/" + left1FileName));
+            left2 = ImageIO.read(new File("assets/" + left2FileName));
+            if (left3FileName != null) {
+                left3 = ImageIO.read(new File("assets/" + left3FileName));
             }
         } catch (IOException e) {
             e.printStackTrace();
