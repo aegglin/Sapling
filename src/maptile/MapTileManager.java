@@ -5,95 +5,85 @@ import window.GamePanel;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class MapTileManager {
 
-    private static final int NUM_TILES = 25;
-
-    private GamePanel gamePanel;
+    private int[][] mapTileNumbers;
     private MapTile[] mapTiles;
+    private GamePanel gamePanel;
 
     public MapTileManager(GamePanel gamePanel) {
-        mapTiles = new MapTile[NUM_TILES];
         this.gamePanel = gamePanel;
-        loadTileImages();
+        mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
+        mapTiles = new MapTile[1];
+        loadTileImage("assets/tiles/Grass.png");
+        loadMap("assets/maps/map1.txt");
     }
 
-    private MapTile loadTileImage(String imageFileName) {
+    private void loadTileImage(String imageFileName) {
         BufferedImage tileImage = null;
         try {
-            tileImage = ImageIO.read(new File("assets/" + imageFileName));
+            tileImage = ImageIO.read(new File(imageFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new MapTile(tileImage);
+        MapTile tile = new MapTile(tileImage);
+        mapTiles[0] = tile;
     }
 
-    public void loadTileImages() {
-        mapTiles[0] = loadTileImage("tiles/Grass.png");
-        mapTiles[1] = loadTileImage("tiles/Grass.png");
-        mapTiles[2] = loadTileImage("tiles/Grass.png");
-        mapTiles[3] = loadTileImage("tiles/Grass.png");
-        mapTiles[4] = loadTileImage("tiles/Grass.png");
+    public void loadMap(String filePath) {
+        try {
+            File mapFile = new File(filePath);
+            BufferedReader br = new BufferedReader(new FileReader(mapFile));
 
-        mapTiles[5] = loadTileImage("tiles/Grass.png");
-        mapTiles[6] = loadTileImage("tiles/Grass.png");
-        mapTiles[7] = loadTileImage("tiles/Grass.png");
-        mapTiles[8] = loadTileImage("tiles/Grass.png");
-        mapTiles[9] = loadTileImage("tiles/Grass.png");
+            int col = 0;
+            int row = 0;
 
-        mapTiles[10] = loadTileImage("tiles/Grass.png");
-        mapTiles[11] = loadTileImage("tiles/Grass.png");
-        mapTiles[12] = loadTileImage("tiles/Grass.png");
-        mapTiles[13] = loadTileImage("tiles/Grass.png");
-        mapTiles[14] = loadTileImage("tiles/Grass.png");
-
-        mapTiles[15] = loadTileImage("tiles/Grass.png");
-        mapTiles[16] = loadTileImage("tiles/Grass.png");
-        mapTiles[17] = loadTileImage("tiles/Grass.png");
-        mapTiles[18] = loadTileImage("tiles/Grass.png");
-        mapTiles[19] = loadTileImage("tiles/Grass.png");
-
-        mapTiles[20] = loadTileImage("tiles/Grass.png");
-        mapTiles[21] = loadTileImage("tiles/Grass.png");
-        mapTiles[22] = loadTileImage("tiles/Grass.png");
-        mapTiles[23] = loadTileImage("tiles/Grass.png");
-        mapTiles[24] = loadTileImage("tiles/Grass.png");
+            while (col < GamePanel.NUMBER_WORLD_COLS && row < GamePanel.NUMBER_WORLD_ROWS) {
+                String line = br.readLine();
+                while (col < GamePanel.NUMBER_WORLD_COLS) {
+                    String[] numbers = line.split(" ");
+                    int num = Integer.parseInt(numbers[col]);
+                    mapTileNumbers[col][row] = num;
+                    col++;
+                }
+                if (col == GamePanel.NUMBER_WORLD_COLS) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void drawAll(Graphics2D g2) {
-        g2.drawImage(mapTiles[0].image, 0, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[1].image, 48, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[2].image, 96, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[3].image, 144, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[4].image, 192, 0, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 
-        g2.drawImage(mapTiles[0].image, 0, 48, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[1].image, 48, 48, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[2].image, 96, 48, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[3].image, 144, 48, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[4].image, 192, 48, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
 
-        g2.drawImage(mapTiles[0].image, 0, 96, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[1].image, 48, 96, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[2].image, 96, 96, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[3].image, 144, 96, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[4].image, 192, 96, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        for (int worldCol = 0; worldCol < GamePanel.NUMBER_WORLD_COLS; worldCol++) {
+            for (int worldRow = 0; worldRow < GamePanel.NUMBER_WORLD_ROWS; worldRow++) {
 
-        g2.drawImage(mapTiles[0].image, 0, 144, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[1].image, 48, 144, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[2].image, 96, 144, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[3].image, 144, 144, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[4].image, 192, 144, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                int tileNumber = mapTileNumbers[worldCol][worldRow];
+                int worldX = worldCol * GamePanel.TILE_SIZE;
+                int worldY = worldRow * GamePanel.TILE_SIZE;
+                int cameraViewX = worldX - gamePanel.user.worldX + gamePanel.user.cameraViewX;
+                int cameraViewY = worldY - gamePanel.user.worldY + gamePanel.user.cameraViewY;
 
-        g2.drawImage(mapTiles[0].image, 0, 192, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[1].image, 48, 192, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[2].image, 96, 192, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[3].image, 144, 192, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
-        g2.drawImage(mapTiles[4].image, 192, 192, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                // Only draw tiles around the player, not all of them all the time
+                if (worldX + GamePanel.TILE_SIZE > gamePanel.user.worldX - gamePanel.user.cameraViewX &&
+                        worldX - GamePanel.TILE_SIZE < gamePanel.user.worldX + gamePanel.user.cameraViewX &&
+                        worldY + GamePanel.TILE_SIZE > gamePanel.user.worldY - gamePanel.user.cameraViewY &&
+                        worldY - GamePanel.TILE_SIZE < gamePanel.user.worldY + gamePanel.user.cameraViewY) {
+                    g2.drawImage(mapTiles[tileNumber].image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                }
+            }
+        }
     }
 }

@@ -9,9 +9,14 @@ import java.awt.image.BufferedImage;
 public class UserGameEntity extends GameEntity {
 
     protected static final KeyHandler keyHandler = GamePanel.getKeyHandler();
+    public final int cameraViewX, cameraViewY;
 
-    public UserGameEntity(int x, int y, int speed, Direction direction) {
-        super(x, y, speed, direction);
+    public UserGameEntity(int worldX, int worldY, int speed, Direction direction) {
+        super(worldX, worldY, speed, direction);
+        int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
+
+        cameraViewX = GamePanel.SCREEN_WIDTH / 2 - offset;
+        cameraViewY = GamePanel.SCREEN_HEIGHT / 2 - offset;
     }
 
     @Override
@@ -19,16 +24,16 @@ public class UserGameEntity extends GameEntity {
         if (keyHandler.keyPressed) {
             if (keyHandler.upPressed) {
                 direction = Direction.UP;
-                y -= speed;
+                worldY -= speed;
             } else if (keyHandler.downPressed) {
                 direction = Direction.DOWN;
-                y += speed;
+                worldY += speed;
             } else if (keyHandler.leftPressed) {
                 direction = Direction.LEFT;
-                x -= speed;
+                worldX -= speed;
             } else if (keyHandler.rightPressed) {
                 direction = Direction.RIGHT;
-                x += speed;
+                worldX += speed;
             }
             // count the number of times update has been called with the current sprite
             spriteUpdateCount++;
@@ -75,7 +80,7 @@ public class UserGameEntity extends GameEntity {
                 }
                 break;
         }
-        g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        g2.drawImage(image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     @Override

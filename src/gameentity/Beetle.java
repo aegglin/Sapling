@@ -2,8 +2,8 @@ package gameentity;
 
 public class Beetle extends UserGameEntity {
 
-    public Beetle(int x, int y, int speed, Direction direction) {
-        super(x, y, speed, direction);
+    public Beetle(int worldX, int worldY, int speed, Direction direction) {
+        super(worldX, worldY, speed, direction);
         super.loadImages("beetle/BeetleUp1.png",
                 "beetle/BeetleUp2.png",
                 null,

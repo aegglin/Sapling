@@ -12,6 +12,8 @@ public class AIGameEntity extends GameEntity{
     private long lastUpdateTime;
     private int directionUpdateCount;
 
+    protected final float SPECIAL_IMAGE_PROBABILITY_THRESHOLD = 0.2f;
+
     public AIGameEntity(int x, int y, int speed, Direction direction) {
         super(x, y, speed, direction);
         lastUpdateTime = System.nanoTime();
@@ -38,13 +40,13 @@ public class AIGameEntity extends GameEntity{
             setDirection();
 
             if (direction == Direction.UP) {
-                y -= speed;
+                worldY -= speed;
             } else if (direction == Direction.DOWN) {
-                y += speed;
+                worldY += speed;
             } else if (direction == Direction.RIGHT) {
-                x += speed;
+                worldX += speed;
             } else if (direction == Direction.LEFT) {
-                x -= speed;
+                worldX -= speed;
             }
             lastUpdateTime = System.nanoTime();
         }
@@ -53,7 +55,17 @@ public class AIGameEntity extends GameEntity{
 
             // switch sprites if it has been the threshold number of frames with the other one
             if (spriteUpdateCount > SPRITE_SWITCH_THRESHOLD) {
-                currentSpriteNumber = currentSpriteNumber == 1 ? 2 : 1;
+
+                double specialImageProb = Math.random();
+
+                // Switch to the special animation if it's under the threshold
+                if (specialImageProb <= SPECIAL_IMAGE_PROBABILITY_THRESHOLD) {
+                    currentSpriteNumber = 3;
+                } else if (currentSpriteNumber == 1) {
+                    currentSpriteNumber = 2;
+                } else if (currentSpriteNumber == 2 || currentSpriteNumber == 3) {
+                    currentSpriteNumber = 1;
+                }
                 spriteUpdateCount = 0;
             }
     }
@@ -68,6 +80,8 @@ public class AIGameEntity extends GameEntity{
                     image = up1;
                 } else if (currentSpriteNumber == 2) {
                     image = up2;
+                } else if (currentSpriteNumber == 3) {
+                    image  = up3;
                 }
                 break;
             case DOWN:
@@ -75,6 +89,8 @@ public class AIGameEntity extends GameEntity{
                     image = down1;
                 } else if (currentSpriteNumber == 2) {
                     image = down2;
+                } else if (currentSpriteNumber == 3) {
+                    image = down3;
                 }
                 break;
             case LEFT:
@@ -82,6 +98,8 @@ public class AIGameEntity extends GameEntity{
                     image = left1;
                 } else if (currentSpriteNumber == 2) {
                     image = left2;
+                } else if (currentSpriteNumber == 3) {
+                    image = left3;
                 }
                 break;
             case RIGHT:
@@ -89,10 +107,12 @@ public class AIGameEntity extends GameEntity{
                     image = right1;
                 } else if (currentSpriteNumber == 2) {
                     image = right2;
+                } else if (currentSpriteNumber == 3) {
+                    image = right3;
                 }
                 break;
         }
-        g2.drawImage(image, x, y, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        g2.drawImage(image, worldX, worldY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
     }
 
     @Override

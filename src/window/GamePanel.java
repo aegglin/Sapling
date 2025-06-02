@@ -3,6 +3,7 @@ package window;
 import gameentity.Bee;
 import gameentity.Beetle;
 import gameentity.Direction;
+import gameentity.UserGameEntity;
 import maptile.MapTileManager;
 
 import java.awt.Color;
@@ -14,21 +15,29 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    public static final int ORIGINAL_TILE_SIZE = 16;
+    public static final int RAW_PIXEL_TILE_SIZE = 16;
     private static final int SCALE = 3;
-    private static final int MAX_SCREEN_COL = 16;
-    private static final int MAX_SCREEN_ROW = 12;
+    public static final int MAX_SCREEN_COL = 16;
+    public static final int MAX_SCREEN_ROW = 12;
     private static final int FPS = 60;
 
-    public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 48 x 48
+    public static final int TILE_SIZE = RAW_PIXEL_TILE_SIZE * SCALE; // 48 x 48
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 pixels
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 pixels
 
+    public static final int NUMBER_WORLD_ROWS = 50;
+    public static final int NUMBER_WORLD_COLS = 50;
+    public static final int WORLD_WIDTH = TILE_SIZE * NUMBER_WORLD_COLS;
+    public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_ROWS;
+
     private static final KeyHandler keyHandler = new KeyHandler();
 
-    public Beetle beetle;
+    public UserGameEntity user;
+
+    private Beetle beetle;
     private Bee bee1;
     private Bee bee2;
+    private Bee bee3;
 
     private Thread gameThread;
     private MapTileManager mapTileManager;
@@ -45,9 +54,12 @@ public class GamePanel extends JPanel implements Runnable{
 
         mapTileManager = new MapTileManager(this);
 
-        beetle = new Beetle(100, 100, 4, Direction.DOWN);
+        beetle = new Beetle(1000, 1000, 4, Direction.DOWN);
         bee1 = new Bee(200, 200, 4, Direction.UP);
         bee2 = new Bee(300, 300, 4, Direction.LEFT);
+        bee3 = new Bee(400, 400, 4, Direction.RIGHT);
+
+        user = beetle;
 
         gameThread.start();
     }
@@ -66,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
         beetle.draw(g2);
         bee1.draw(g2);
         bee2.draw(g2);
+        bee3.draw(g2);
 
         g2.dispose();
     }
@@ -74,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable{
         beetle.update();
         bee1.update();
         bee2.update();
+        bee3.update();
     }
 
     @Override

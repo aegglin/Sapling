@@ -12,7 +12,7 @@ public abstract class GameEntity {
 
     public static final int SPRITE_SWITCH_THRESHOLD = 12;
 
-    public int x, y, speed;
+    public int worldX, worldY, speed;
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public Direction direction;
 
@@ -23,9 +23,16 @@ public abstract class GameEntity {
     protected abstract void draw(Graphics2D g2);
     protected abstract boolean isColliding(GameEntity gameEntity);
 
-    public GameEntity(int x, int y, int speed, Direction direction) {
-        this.x = x;
-        this.y = y;
+    public GameEntity() {
+        this.worldX = 100;
+        this.worldY = 100;
+        this.speed = 4;
+        this.direction = Direction.DOWN;
+    }
+
+    public GameEntity(int worldX, int worldY, int speed, Direction direction) {
+        this.worldX = worldX;
+        this.worldY = worldY;
         this.speed = speed;
         this.direction = direction;
 
