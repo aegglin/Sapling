@@ -34,35 +34,35 @@ public class MapTileManager {
     }
 
     public void loadTileImages() {
-        mapTiles[0] = loadTileImage("Grass.png");
-        mapTiles[1] = loadTileImage("Grass.png");
-        mapTiles[2] = loadTileImage("Grass.png");
-        mapTiles[3] = loadTileImage("Grass.png");
-        mapTiles[4] = loadTileImage("Grass.png");
+        mapTiles[0] = loadTileImage("tiles/Grass.png");
+        mapTiles[1] = loadTileImage("tiles/Grass.png");
+        mapTiles[2] = loadTileImage("tiles/Grass.png");
+        mapTiles[3] = loadTileImage("tiles/Grass.png");
+        mapTiles[4] = loadTileImage("tiles/Grass.png");
 
-        mapTiles[5] = loadTileImage("Grass.png");
-        mapTiles[6] = loadTileImage("Grass.png");
-        mapTiles[7] = loadTileImage("Grass.png");
-        mapTiles[8] = loadTileImage("Grass.png");
-        mapTiles[9] = loadTileImage("Grass.png");
+        mapTiles[5] = loadTileImage("tiles/Grass.png");
+        mapTiles[6] = loadTileImage("tiles/Grass.png");
+        mapTiles[7] = loadTileImage("tiles/Grass.png");
+        mapTiles[8] = loadTileImage("tiles/Grass.png");
+        mapTiles[9] = loadTileImage("tiles/Grass.png");
 
-        mapTiles[10] = loadTileImage("Grass.png");
-        mapTiles[11] = loadTileImage("Grass.png");
-        mapTiles[12] = loadTileImage("Grass.png");
-        mapTiles[13] = loadTileImage("Grass.png");
-        mapTiles[14] = loadTileImage("Grass.png");
+        mapTiles[10] = loadTileImage("tiles/Grass.png");
+        mapTiles[11] = loadTileImage("tiles/Grass.png");
+        mapTiles[12] = loadTileImage("tiles/Grass.png");
+        mapTiles[13] = loadTileImage("tiles/Grass.png");
+        mapTiles[14] = loadTileImage("tiles/Grass.png");
 
-        mapTiles[15] = loadTileImage("Grass.png");
-        mapTiles[16] = loadTileImage("Grass.png");
-        mapTiles[17] = loadTileImage("Grass.png");
-        mapTiles[18] = loadTileImage("Grass.png");
-        mapTiles[19] = loadTileImage("Grass.png");
+        mapTiles[15] = loadTileImage("tiles/Grass.png");
+        mapTiles[16] = loadTileImage("tiles/Grass.png");
+        mapTiles[17] = loadTileImage("tiles/Grass.png");
+        mapTiles[18] = loadTileImage("tiles/Grass.png");
+        mapTiles[19] = loadTileImage("tiles/Grass.png");
 
-        mapTiles[20] = loadTileImage("Grass.png");
-        mapTiles[21] = loadTileImage("Grass.png");
-        mapTiles[22] = loadTileImage("Grass.png");
-        mapTiles[23] = loadTileImage("Grass.png");
-        mapTiles[24] = loadTileImage("Grass.png");
+        mapTiles[20] = loadTileImage("tiles/Grass.png");
+        mapTiles[21] = loadTileImage("tiles/Grass.png");
+        mapTiles[22] = loadTileImage("tiles/Grass.png");
+        mapTiles[23] = loadTileImage("tiles/Grass.png");
+        mapTiles[24] = loadTileImage("tiles/Grass.png");
     }
 
     public void drawAll(Graphics2D g2) {

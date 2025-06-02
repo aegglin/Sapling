@@ -4,17 +4,17 @@ public class Bee extends AIGameEntity{
 
     public Bee(int x, int y, int speed, Direction direction) {
         super(x, y, speed, direction);
-        super.loadImages("BeeUp1.png",
-                "BeeUp2.png",
-                "BeeUpFly.png",
-                "BeeDown1.png",
-                "BeeDown2.png",
-                "BeeDownFly.png",
-                "BeeRight1.png",
-                "BeeRight2.png",
-                "BeeRightFly.png",
-                "BeeLeft1.png",
-                "BeeLeft2.png",
-                "BeeLeftFly.png");
+        super.loadImages("bee/BeeUp1.png",
+                "bee/BeeUp2.png",
+                "bee/BeeUpFly.png",
+                "bee/BeeDown1.png",
+                "bee/BeeDown2.png",
+                "bee/BeeDownFly.png",
+                "bee/BeeRight1.png",
+                "bee/BeeRight2.png",
+                "bee/BeeRightFly.png",
+                "bee/BeeLeft1.png",
+                "bee/BeeLeft2.png",
+                "bee/BeeLeftFly.png");
     }
 }
