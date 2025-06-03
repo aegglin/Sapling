@@ -18,11 +18,19 @@ public class MapTileManager {
     private MapTile[] mapTiles;
     private GamePanel gamePanel;
 
+    private static final int NUM_TILES = 4;
+
+    private int currentTileIndex;
+
     public MapTileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
-        mapTiles = new MapTile[1];
+        mapTiles = new MapTile[NUM_TILES];
+        currentTileIndex = 0;
         loadTileImage("assets/tiles/Grass.png");
+        loadTileImage("assets/tiles/Tree1.png");
+        loadTileImage("assets/tiles/Tree2.png");
+        loadTileImage("assets/tiles/Shrub.png");
         loadMap("assets/maps/map1.txt");
     }
 
@@ -34,7 +42,8 @@ public class MapTileManager {
             e.printStackTrace();
         }
         MapTile tile = new MapTile(tileImage);
-        mapTiles[0] = tile;
+        mapTiles[currentTileIndex] = tile;
+        currentTileIndex++;
     }
 
     public void loadMap(String filePath) {
@@ -65,7 +74,6 @@ public class MapTileManager {
     }
 
     public void drawAll(Graphics2D g2) {
-
 
         for (int worldCol = 0; worldCol < GamePanel.NUMBER_WORLD_COLS; worldCol++) {
             for (int worldRow = 0; worldRow < GamePanel.NUMBER_WORLD_ROWS; worldRow++) {

@@ -48,6 +48,7 @@ public class UserGameEntity extends GameEntity {
 
     @Override
     public void draw(Graphics2D g2) {
+
         BufferedImage image = null;
         // Switch on which image to draw
         switch (direction) {

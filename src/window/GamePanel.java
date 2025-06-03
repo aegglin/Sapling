@@ -55,11 +55,11 @@ public class GamePanel extends JPanel implements Runnable{
         mapTileManager = new MapTileManager(this);
 
         beetle = new Beetle(1000, 1000, 4, Direction.DOWN);
-        bee1 = new Bee(200, 200, 4, Direction.UP);
-        bee2 = new Bee(300, 300, 4, Direction.LEFT);
-        bee3 = new Bee(400, 400, 4, Direction.RIGHT);
-
         user = beetle;
+
+        bee1 = new Bee(200, 200, 4, Direction.UP, user);
+        bee2 = new Bee(300, 300, 4, Direction.LEFT, user);
+        bee3 = new Bee(400, 400, 4, Direction.RIGHT, user);
 
         gameThread.start();
     }

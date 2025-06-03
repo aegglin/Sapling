@@ -2,8 +2,8 @@ package gameentity;
 
 public class Bee extends AIGameEntity{
 
-    public Bee(int worldX, int worldY, int speed, Direction direction) {
-        super(worldX, worldY, speed, direction);
+    public Bee(int worldX, int worldY, int speed, Direction direction, UserGameEntity userGameEntity) {
+        super(worldX, worldY, speed, direction, userGameEntity);
         super.loadImages("bee/BeeUp1.png",
                 "bee/BeeUp2.png",
                 "bee/BeeUpFly.png",
