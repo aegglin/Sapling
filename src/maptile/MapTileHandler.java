@@ -12,35 +12,34 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class MapTileManager {
+public class MapTileHandler {
 
-    private int[][] mapTileNumbers;
-    private MapTile[] mapTiles;
+    public int[][] mapTileNumbers;
+    public MapTile[] mapTiles;
+
     private GamePanel gamePanel;
-
+    private int currentTileIndex;
     private static final int NUM_TILES = 10;
 
-    private int currentTileIndex;
-
-    public MapTileManager(GamePanel gamePanel) {
+    public MapTileHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
         mapTiles = new MapTile[NUM_TILES];
         currentTileIndex = 0;
-        loadTileImage("assets/tiles/Grass.png");
-        loadTileImage("assets/tiles/Tree1.png");
-        loadTileImage("assets/tiles/Tree2.png");
-        loadTileImage("assets/tiles/Tree3.png");
-        loadTileImage("assets/tiles/Shrub.png");
-        loadTileImage("assets/tiles/Underbrush.png");
-        loadTileImage("assets/tiles/Shrub_Underbrush.png");
-        loadTileImage("assets/tiles/Tree1_Underbrush.png");
-        loadTileImage("assets/tiles/Tree2_Underbrush.png");
-        loadTileImage("assets/tiles/Tree3_Underbrush.png");
+        loadTileImage("assets/tiles/Grass.png", false);
+        loadTileImage("assets/tiles/Tree1.png", true);
+        loadTileImage("assets/tiles/Tree2.png", true);
+        loadTileImage("assets/tiles/Tree3.png", true);
+        loadTileImage("assets/tiles/Shrub.png", true);
+        loadTileImage("assets/tiles/Underbrush.png", false);
+        loadTileImage("assets/tiles/Shrub_Underbrush.png", true);
+        loadTileImage("assets/tiles/Tree1_Underbrush.png", true);
+        loadTileImage("assets/tiles/Tree2_Underbrush.png", true);
+        loadTileImage("assets/tiles/Tree3_Underbrush.png", true);
         loadMap("assets/maps/map1.txt");
     }
 
-    private void loadTileImage(String imageFileName) {
+    private void loadTileImage(String imageFileName, boolean isSolid) {
         BufferedImage tileImage = null;
         try {
             tileImage = ImageIO.read(new File(imageFileName));
@@ -48,6 +47,7 @@ public class MapTileManager {
             e.printStackTrace();
         }
         MapTile tile = new MapTile(tileImage);
+        tile.isSolid = isSolid;
         mapTiles[currentTileIndex] = tile;
         currentTileIndex++;
     }

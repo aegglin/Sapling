@@ -1,5 +1,8 @@
 package gameentity;
 
+import window.GamePanel;
+
+import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -15,27 +18,26 @@ public abstract class GameEntity {
     public int worldX, worldY, speed;
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
     public Direction direction;
+    public Rectangle collisionArea;
+    public boolean isColliding;
 
     protected int spriteUpdateCount;
     protected int currentSpriteNumber;
+    protected GamePanel gamePanel;
 
     protected abstract void update();
     protected abstract void draw(Graphics2D g2);
     protected abstract boolean isColliding(GameEntity gameEntity);
 
-    public GameEntity() {
-        this.worldX = 100;
-        this.worldY = 100;
-        this.speed = 4;
-        this.direction = Direction.DOWN;
-    }
 
-    public GameEntity(int worldX, int worldY, int speed, Direction direction) {
+    public GameEntity(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.speed = speed;
         this.direction = direction;
+        this.gamePanel = gamePanel;
 
+        isColliding = false;
         spriteUpdateCount = 0;
         currentSpriteNumber = 1;
     }

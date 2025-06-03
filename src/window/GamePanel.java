@@ -1,10 +1,11 @@
 package window;
 
+import maptile.MapTileCollisionHandler;
 import gameentity.Bee;
 import gameentity.Beetle;
 import gameentity.Direction;
 import gameentity.UserGameEntity;
-import maptile.MapTileManager;
+import maptile.MapTileHandler;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +32,9 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_ROWS;
 
     private static final KeyHandler keyHandler = new KeyHandler();
+    public MapTileHandler mapTileHandler;
+
+    public MapTileCollisionHandler mapTileCollisionHandler;
 
     public UserGameEntity user;
 
@@ -40,7 +44,6 @@ public class GamePanel extends JPanel implements Runnable{
     private Bee bee3;
 
     private Thread gameThread;
-    private MapTileManager mapTileManager;
 
     public GamePanel() {
         gameThread = new Thread(this);
@@ -52,14 +55,15 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
-        mapTileManager = new MapTileManager(this);
+        mapTileHandler = new MapTileHandler(this);
+        mapTileCollisionHandler = new MapTileCollisionHandler(this);
 
-        beetle = new Beetle(1000, 1000, 4, Direction.DOWN);
+        beetle = new Beetle(1000, 1000, 4, Direction.DOWN, this);
         user = beetle;
 
-        bee1 = new Bee(200, 200, 4, Direction.UP, user);
-        bee2 = new Bee(300, 300, 4, Direction.LEFT, user);
-        bee3 = new Bee(400, 400, 4, Direction.RIGHT, user);
+        bee1 = new Bee(200, 200, 4, Direction.UP, this, user);
+        bee2 = new Bee(300, 300, 4, Direction.LEFT, this, user);
+        bee3 = new Bee(400, 400, 4, Direction.RIGHT, this, user);
 
         gameThread.start();
     }
@@ -74,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        mapTileManager.drawAll(g2);
+        mapTileHandler.drawAll(g2);
         beetle.draw(g2);
         bee1.draw(g2);
         bee2.draw(g2);

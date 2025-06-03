@@ -1,9 +1,11 @@
 package gameentity;
 
+import window.GamePanel;
+
 public class Bee extends AIGameEntity{
 
-    public Bee(int worldX, int worldY, int speed, Direction direction, UserGameEntity userGameEntity) {
-        super(worldX, worldY, speed, direction, userGameEntity);
+    public Bee(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel, UserGameEntity userGameEntity) {
+        super(worldX, worldY, speed, direction, gamePanel, userGameEntity);
         super.loadImages("bee/BeeUp1.png",
                 "bee/BeeUp2.png",
                 "bee/BeeUpFly.png",

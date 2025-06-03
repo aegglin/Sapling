@@ -15,8 +15,8 @@ public class AIGameEntity extends GameEntity{
 
     protected final float SPECIAL_IMAGE_PROBABILITY_THRESHOLD = 0.2f;
 
-    public AIGameEntity(int x, int y, int speed, Direction direction, UserGameEntity userGameEntity) {
-        super(x, y, speed, direction);
+    public AIGameEntity(int x, int y, int speed, Direction direction, GamePanel gamePanel, UserGameEntity userGameEntity) {
+        super(x, y, speed, direction, gamePanel);
         this.userGameEntity = userGameEntity;
         lastUpdateTime = System.nanoTime();
         directionUpdateCount = 0;

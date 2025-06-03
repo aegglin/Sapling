@@ -1,18 +1,24 @@
 package gameentity;
 
+import maptile.MapTileCollisionHandler;
 import window.GamePanel;
 import window.KeyHandler;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class UserGameEntity extends GameEntity {
 
+    public GamePanel gamePanel;
+
     protected static final KeyHandler keyHandler = GamePanel.getKeyHandler();
     public final int cameraViewX, cameraViewY;
 
-    public UserGameEntity(int worldX, int worldY, int speed, Direction direction) {
-        super(worldX, worldY, speed, direction);
+    public UserGameEntity(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel) {
+        super(worldX, worldY, speed, direction, gamePanel);
+
+        collisionArea = new Rectangle(8, 32, 32, 10);
+
         int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
 
         cameraViewX = GamePanel.SCREEN_WIDTH / 2 - offset;
@@ -22,19 +28,40 @@ public class UserGameEntity extends GameEntity {
     @Override
     public void update() {
         if (keyHandler.keyPressed) {
+            // Get the direction of movement
             if (keyHandler.upPressed) {
                 direction = Direction.UP;
-                worldY -= speed;
+
             } else if (keyHandler.downPressed) {
                 direction = Direction.DOWN;
-                worldY += speed;
             } else if (keyHandler.leftPressed) {
                 direction = Direction.LEFT;
-                worldX -= speed;
             } else if (keyHandler.rightPressed) {
                 direction = Direction.RIGHT;
-                worldX += speed;
             }
+
+            // reset the collision
+            isColliding = false;
+            super.gamePanel.mapTileCollisionHandler.checkCollision(this);
+
+            // Player can only move when there isn't a collision
+            if (!isColliding) {
+                switch(direction) {
+                    case Direction.UP:
+                        worldY -= speed;
+                        break;
+                    case Direction.DOWN:
+                        worldY += speed;
+                        break;
+                    case Direction.LEFT:
+                        worldX -= speed;
+                        break;
+                    case Direction.RIGHT:
+                        worldX += speed;
+                        break;
+                }
+            }
+
             // count the number of times update has been called with the current sprite
             spriteUpdateCount++;
 

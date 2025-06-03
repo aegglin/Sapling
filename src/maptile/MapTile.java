@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 
 public class MapTile {
     public BufferedImage image;
-    public boolean isColliding;
+    public boolean isSolid;
 
     public MapTile(BufferedImage image) {
-        isColliding = false;
+        isSolid = false;
         this.image = image;
     }
 }
