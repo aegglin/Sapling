@@ -18,7 +18,7 @@ public class MapTileManager {
     private MapTile[] mapTiles;
     private GamePanel gamePanel;
 
-    private static final int NUM_TILES = 9;
+    private static final int NUM_TILES = 10;
 
     private int currentTileIndex;
 
@@ -36,6 +36,7 @@ public class MapTileManager {
         loadTileImage("assets/tiles/Shrub_Underbrush.png");
         loadTileImage("assets/tiles/Tree1_Underbrush.png");
         loadTileImage("assets/tiles/Tree2_Underbrush.png");
+        loadTileImage("assets/tiles/Tree3_Underbrush.png");
         loadMap("assets/maps/map1.txt");
     }
 
