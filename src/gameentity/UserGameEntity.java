@@ -17,7 +17,7 @@ public class UserGameEntity extends GameEntity {
     public UserGameEntity(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel) {
         super(worldX, worldY, speed, direction, gamePanel);
 
-        collisionArea = new Rectangle(8, 32, 32, 10);
+        collisionArea = new Rectangle(10, 8, 16, 16);
 
         int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
 

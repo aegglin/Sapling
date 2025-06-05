@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -31,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int WORLD_WIDTH = TILE_SIZE * NUMBER_WORLD_COLS;
     public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_ROWS;
 
+    public static final Random random = new Random();
+
     private static final KeyHandler keyHandler = new KeyHandler();
     public MapTileHandler mapTileHandler;
 
@@ -42,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
     private Bee bee1;
     private Bee bee2;
     private Bee bee3;
+    private Bee bee4;
+    private Bee bee5;
 
     private Thread gameThread;
 
@@ -61,9 +66,11 @@ public class GamePanel extends JPanel implements Runnable{
         beetle = new Beetle(1000, 1000, 4, Direction.DOWN, this);
         user = beetle;
 
-        bee1 = new Bee(200, 200, 4, Direction.UP, this, user);
-        bee2 = new Bee(300, 300, 4, Direction.LEFT, this, user);
-        bee3 = new Bee(400, 400, 4, Direction.RIGHT, this, user);
+        bee1 = new Bee(this, user);
+        bee2 = new Bee(this, user);
+        bee3 = new Bee(this, user);
+        bee4 = new Bee(this, user);
+        bee5 = new Bee(this, user);
 
         gameThread.start();
     }
@@ -79,10 +86,13 @@ public class GamePanel extends JPanel implements Runnable{
         g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         mapTileHandler.drawAll(g2);
-        beetle.draw(g2);
         bee1.draw(g2);
         bee2.draw(g2);
         bee3.draw(g2);
+        bee4.draw(g2);
+        bee5.draw(g2);
+
+        beetle.draw(g2);
 
         g2.dispose();
     }

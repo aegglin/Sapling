@@ -8,12 +8,12 @@ import java.util.Random;
 
 public class AIGameEntity extends GameEntity{
 
-    protected static final Random random = new Random();
     private UserGameEntity userGameEntity;
     private long lastUpdateTime;
     private int directionUpdateCount;
 
     protected final float SPECIAL_IMAGE_PROBABILITY_THRESHOLD = 0.2f;
+    protected static final Random random = new Random();
 
     public AIGameEntity(int x, int y, int speed, Direction direction, GamePanel gamePanel, UserGameEntity userGameEntity) {
         super(x, y, speed, direction, gamePanel);
@@ -22,9 +22,24 @@ public class AIGameEntity extends GameEntity{
         directionUpdateCount = 0;
     }
 
+    public AIGameEntity(GamePanel gamePanel, UserGameEntity userGameEntity) {
+        super(gamePanel);
+        int randX = random.nextInt(GamePanel.WORLD_WIDTH);
+        int randY = random.nextInt(GamePanel.WORLD_HEIGHT);
+        int randSpeed = random.nextInt(10);
+        Direction[] directions = Direction.values();
+        Direction randDirection = directions[GamePanel.random.nextInt(directions.length)];
+        this.worldX = randX;
+        this.worldY = randY;
+        this.speed = randSpeed;
+        this.direction = randDirection;
+        this.userGameEntity = userGameEntity;
+    }
+
+
     private void setDirection() {
         Direction[] directions = Direction.values();
-        Direction newDirection = directions[random.nextInt(directions.length)];
+        Direction newDirection = directions[GamePanel.random.nextInt(directions.length)];
 
         // Try and smooth out AI motion a bit
         if (newDirection != direction && directionUpdateCount > 2) {

@@ -42,6 +42,10 @@ public abstract class GameEntity {
         currentSpriteNumber = 1;
     }
 
+    public GameEntity(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
     public void loadImages(String up1FileName,
                            String up2FileName,
                            String up3FileName,

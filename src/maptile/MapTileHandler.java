@@ -33,9 +33,9 @@ public class MapTileHandler {
         loadTileImage("assets/tiles/Shrub.png", true);
         loadTileImage("assets/tiles/Underbrush.png", false);
         loadTileImage("assets/tiles/Shrub_Underbrush.png", true);
-        loadTileImage("assets/tiles/Tree1_Underbrush.png", true);
-        loadTileImage("assets/tiles/Tree2_Underbrush.png", true);
-        loadTileImage("assets/tiles/Tree3_Underbrush.png", true);
+//        loadTileImage("assets/tiles/Tree1_Underbrush.png", true);
+//        loadTileImage("assets/tiles/Tree2_Underbrush.png", true);
+//        loadTileImage("assets/tiles/Tree3_Underbrush.png", true);
         loadMap("assets/maps/map1.txt");
     }
 
