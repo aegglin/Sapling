@@ -2,7 +2,7 @@ package gameentity;
 
 import window.GamePanel;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -20,6 +20,7 @@ public class AIGameEntity extends GameEntity{
         this.userGameEntity = userGameEntity;
         lastUpdateTime = System.nanoTime();
         directionUpdateCount = 0;
+        collisionArea = new Rectangle(10, 8, 16, 16);
     }
 
     public AIGameEntity(GamePanel gamePanel, UserGameEntity userGameEntity) {
@@ -29,11 +30,12 @@ public class AIGameEntity extends GameEntity{
         int randSpeed = random.nextInt(10);
         Direction[] directions = Direction.values();
         Direction randDirection = directions[GamePanel.random.nextInt(directions.length)];
-        this.worldX = randX;
-        this.worldY = randY;
-        this.speed = randSpeed;
-        this.direction = randDirection;
+        super.worldX = randX;
+        super.worldY = randY;
+        super.speed = randSpeed;
+        super.direction = randDirection;
         this.userGameEntity = userGameEntity;
+        collisionArea = new Rectangle(10, 8, 16, 16);
     }
 
 
@@ -56,15 +58,21 @@ public class AIGameEntity extends GameEntity{
         if (newUpdateTime - lastUpdateTime >= 1e8) {
             setDirection();
 
-            if (direction == Direction.UP) {
-                worldY -= speed;
-            } else if (direction == Direction.DOWN) {
-                worldY += speed;
-            } else if (direction == Direction.RIGHT) {
-                worldX += speed;
-            } else if (direction == Direction.LEFT) {
-                worldX -= speed;
+            isColliding = false;
+            super.gamePanel.mapTileCollisionHandler.checkCollision(this);
+
+            if (!isColliding) {
+                if (direction == Direction.UP) {
+                    worldY -= speed;
+                } else if (direction == Direction.DOWN) {
+                    worldY += speed;
+                } else if (direction == Direction.RIGHT) {
+                    worldX += speed;
+                } else if (direction == Direction.LEFT) {
+                    worldX -= speed;
+                }
             }
+
             lastUpdateTime = System.nanoTime();
         }
             // count the number of times update has been called with the current sprite

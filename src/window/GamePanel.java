@@ -102,6 +102,8 @@ public class GamePanel extends JPanel implements Runnable{
         bee1.update();
         bee2.update();
         bee3.update();
+        bee4.update();
+        bee5.update();
     }
 
     @Override
