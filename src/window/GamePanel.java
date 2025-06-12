@@ -1,10 +1,7 @@
 package window;
 
+import gameentity.*;
 import maptile.MapTileCollisionHandler;
-import gameentity.Bee;
-import gameentity.Beetle;
-import gameentity.Direction;
-import gameentity.UserGameEntity;
 import maptile.MapTileHandler;
 
 import java.awt.Color;
@@ -29,15 +26,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static final int NUMBER_WORLD_ROWS = 50;
     public static final int NUMBER_WORLD_COLS = 50;
-    public static final int WORLD_WIDTH = TILE_SIZE * NUMBER_WORLD_COLS;
-    public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_ROWS;
+    public static final int WORLD_WIDTH = TILE_SIZE * NUMBER_WORLD_ROWS;
+    public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_COLS;
 
     public static final Random random = new Random();
 
     private static final KeyHandler keyHandler = new KeyHandler();
     public MapTileHandler mapTileHandler;
-
     public MapTileCollisionHandler mapTileCollisionHandler;
+    Sound sound = new Sound();
 
     public UserGameEntity user;
 
@@ -130,5 +127,10 @@ public class GamePanel extends JPanel implements Runnable{
             }
             nextDrawTime += drawInterval;
         }
+    }
+
+    public void playSoundEffect(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 }

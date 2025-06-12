@@ -19,36 +19,35 @@ public class MapTileHandler {
 
     private GamePanel gamePanel;
     private int currentTileIndex;
-    private static final int NUM_TILES = 10;
+    private static final int NUM_TILES = 11;
 
     public MapTileHandler(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
         mapTiles = new MapTile[NUM_TILES];
         currentTileIndex = 0;
-        loadTileImage("assets/tiles/Grass.png", false);
-        loadTileImage("assets/tiles/Tree1.png", true);
-        loadTileImage("assets/tiles/Tree2.png", true);
-        loadTileImage("assets/tiles/Tree3.png", true);
-        loadTileImage("assets/tiles/Shrub.png", true);
-        loadTileImage("assets/tiles/Underbrush.png", false);
-        loadTileImage("assets/tiles/Shrub_Underbrush.png", true);
-        loadTileImage("assets/tiles/OrangeFlower.png", false);
-//        loadTileImage("assets/tiles/Tree1_Underbrush.png", true);
-//        loadTileImage("assets/tiles/Tree2_Underbrush.png", true);
-//        loadTileImage("assets/tiles/Tree3_Underbrush.png", true);
+        loadTileImage("assets/tiles/Grass.png", false, false);
+        loadTileImage("assets/tiles/Tree1.png", true, false);
+        loadTileImage("assets/tiles/Tree2.png", true, false);
+        loadTileImage("assets/tiles/Tree3.png", true, false);
+        loadTileImage("assets/tiles/Shrub.png", true, false);
+        loadTileImage("assets/tiles/Underbrush.png", false, false);
+        loadTileImage("assets/tiles/Shrub_Underbrush.png", true, false);
+        loadTileImage("assets/tiles/OrangeFlower.png", false, false);
+        loadTileImage("assets/tiles/Tree1_Flies1.png", true, true);
+        loadTileImage("assets/tiles/Tree1_Beehive1.png", true, false);
+        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", true, false);
         loadMap("assets/maps/map1.txt");
     }
 
-    private void loadTileImage(String imageFileName, boolean isSolid) {
+    private void loadTileImage(String imageFileName, boolean isSolid, boolean hasSound) {
         BufferedImage tileImage = null;
         try {
             tileImage = ImageIO.read(new File(imageFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MapTile tile = new MapTile(tileImage);
-        tile.isSolid = isSolid;
+        MapTile tile = new MapTile(tileImage, isSolid, hasSound);
         mapTiles[currentTileIndex] = tile;
         currentTileIndex++;
     }

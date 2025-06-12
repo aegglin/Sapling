@@ -28,8 +28,7 @@ public abstract class GameEntity {
     protected abstract void update();
     protected abstract void draw(Graphics2D g2);
     protected abstract boolean isColliding(GameEntity gameEntity);
-
-
+    
     public GameEntity(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel) {
         this.worldX = worldX;
         this.worldY = worldY;

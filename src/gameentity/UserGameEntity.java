@@ -1,6 +1,5 @@
 package gameentity;
 
-import maptile.MapTileCollisionHandler;
 import window.GamePanel;
 import window.KeyHandler;
 
@@ -13,11 +12,15 @@ public class UserGameEntity extends GameEntity {
 
     protected static final KeyHandler keyHandler = GamePanel.getKeyHandler();
     public final int cameraViewX, cameraViewY;
+    public Rectangle hearingArea;
+    public boolean isInEarshot;
 
     public UserGameEntity(int worldX, int worldY, int speed, Direction direction, GamePanel gamePanel) {
         super(worldX, worldY, speed, direction, gamePanel);
 
         collisionArea = new Rectangle(10, 8, 16, 16);
+        hearingArea = new Rectangle(10, 8, 50, 50);
+        isInEarshot = false;
 
         int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
 
@@ -31,7 +34,6 @@ public class UserGameEntity extends GameEntity {
             // Get the direction of movement
             if (keyHandler.upPressed) {
                 direction = Direction.UP;
-
             } else if (keyHandler.downPressed) {
                 direction = Direction.DOWN;
             } else if (keyHandler.leftPressed) {
@@ -42,6 +44,8 @@ public class UserGameEntity extends GameEntity {
 
             // reset the collision
             isColliding = false;
+            isInEarshot = false;
+            super.gamePanel.mapTileCollisionHandler.checkEarshot(this);
             super.gamePanel.mapTileCollisionHandler.checkCollision(this);
 
             // Player can only move when there isn't a collision
