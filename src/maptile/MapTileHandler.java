@@ -1,5 +1,6 @@
 package maptile;
 
+import gameentity.GameSound;
 import window.GamePanel;
 
 import java.awt.Graphics2D;
@@ -26,28 +27,28 @@ public class MapTileHandler {
         mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
         mapTiles = new MapTile[NUM_TILES];
         currentTileIndex = 0;
-        loadTileImage("assets/tiles/Grass.png", false, false);
-        loadTileImage("assets/tiles/Tree1.png", true, false);
-        loadTileImage("assets/tiles/Tree2.png", true, false);
-        loadTileImage("assets/tiles/Tree3.png", true, false);
-        loadTileImage("assets/tiles/Shrub.png", true, false);
-        loadTileImage("assets/tiles/Underbrush.png", false, false);
-        loadTileImage("assets/tiles/Shrub_Underbrush.png", true, false);
-        loadTileImage("assets/tiles/OrangeFlower.png", false, false);
-        loadTileImage("assets/tiles/Tree1_Flies1.png", true, true);
-        loadTileImage("assets/tiles/Tree1_Beehive1.png", true, false);
-        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", true, false);
+        loadTileImage("assets/tiles/Grass.png", "Grass", false, false, null);
+        loadTileImage("assets/tiles/Tree1.png", "Tree1", true, false, null);
+        loadTileImage("assets/tiles/Tree2.png", "Tree2", true, false, null);
+        loadTileImage("assets/tiles/Tree3.png", "Tree3",true, false, null);
+        loadTileImage("assets/tiles/Shrub.png", "Shrub",true, false, null);
+        loadTileImage("assets/tiles/Underbrush.png", "Underbrush", false, false, null);
+        loadTileImage("assets/tiles/Shrub_Underbrush.png", "ShrubUnderbrush", true, false, null);
+        loadTileImage("assets/tiles/OrangeFlower.png", "OrangeFlower", false, false, null);
+        loadTileImage("assets/tiles/Tree1_Flies1.png", "TreeFlies1", true, true, gamePanel.gameSoundManager.getSound("flies"));
+        loadTileImage("assets/tiles/Tree1_Beehive1.png", "TreeBeehive1", true, true, gamePanel.gameSoundManager.getSound("bees"));
+        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", "TreeWoodpecker1", true, true, gamePanel.gameSoundManager.getSound("woodpecker"));
         loadMap("assets/maps/map1.txt");
     }
 
-    private void loadTileImage(String imageFileName, boolean isSolid, boolean hasSound) {
+    private void loadTileImage(String imageFileName, String name, boolean isSolid, boolean hasSound, GameSound sound) {
         BufferedImage tileImage = null;
         try {
             tileImage = ImageIO.read(new File(imageFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MapTile tile = new MapTile(tileImage, isSolid, hasSound);
+        MapTile tile = new MapTile(name, tileImage, isSolid, hasSound, sound);
         mapTiles[currentTileIndex] = tile;
         currentTileIndex++;
     }

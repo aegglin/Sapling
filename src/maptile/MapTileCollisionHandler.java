@@ -15,7 +15,7 @@ public class MapTileCollisionHandler {
         this.mapTileHandler = gamePanel.mapTileHandler;
     }
 
-    public void checkEarshot(UserGameEntity user) {
+    public int[] checkEarshot(UserGameEntity user) {
         // Figure out which tiles the character is facing based on the direction and then check for if the tile is solid
         int entityLeftWorldX = user.worldX + user.hearingArea.x;
         int entityRightWorldX = user.worldX + user.hearingArea.x + user.hearingArea.width;
@@ -27,7 +27,8 @@ public class MapTileCollisionHandler {
         int entityTopRow = entityTopWorldY / GamePanel.TILE_SIZE;
         int entityBottomRow = entityBottomWorldY / GamePanel.TILE_SIZE;
 
-        int currentTile1, currentTile2;
+        int currentTile1 = 0;
+        int currentTile2 = 0;
 
         switch (user.direction) {
             case Direction.UP:
@@ -67,6 +68,7 @@ public class MapTileCollisionHandler {
                 }
                 break;
         }
+        return new int[] {currentTile1, currentTile2};
     }
 
     public void checkCollision(GameEntity entity) {

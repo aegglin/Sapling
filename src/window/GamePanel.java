@@ -1,6 +1,7 @@
 package window;
 
 import gameentity.*;
+
 import maptile.MapTileCollisionHandler;
 import maptile.MapTileHandler;
 
@@ -34,16 +35,12 @@ public class GamePanel extends JPanel implements Runnable{
     private static final KeyHandler keyHandler = new KeyHandler();
     public MapTileHandler mapTileHandler;
     public MapTileCollisionHandler mapTileCollisionHandler;
-    Sound sound = new Sound();
+    public GameSoundManager gameSoundManager;
 
     public UserGameEntity user;
 
+    private AIGameEntity[] aiGameEntities;
     private Beetle beetle;
-    private Bee bee1;
-    private Bee bee2;
-    private Bee bee3;
-    private Bee bee4;
-    private Bee bee5;
 
     private Thread gameThread;
 
@@ -57,17 +54,17 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
+        gameSoundManager = new GameSoundManager();
         mapTileHandler = new MapTileHandler(this);
         mapTileCollisionHandler = new MapTileCollisionHandler(this);
 
         beetle = new Beetle(1000, 1000, 4, Direction.DOWN, this);
         user = beetle;
-
-        bee1 = new Bee(this, user);
-        bee2 = new Bee(this, user);
-        bee3 = new Bee(this, user);
-        bee4 = new Bee(this, user);
-        bee5 = new Bee(this, user);
+        aiGameEntities = new AIGameEntity[6];
+        for (int i = 0; i < aiGameEntities.length; i++) {
+            Bee bee = new Bee(this, user);
+            aiGameEntities[i] = bee;
+        }
 
         gameThread.start();
     }
@@ -83,11 +80,9 @@ public class GamePanel extends JPanel implements Runnable{
         g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         mapTileHandler.drawAll(g2);
-        bee1.draw(g2);
-        bee2.draw(g2);
-        bee3.draw(g2);
-        bee4.draw(g2);
-        bee5.draw(g2);
+        for (AIGameEntity entity: aiGameEntities) {
+            entity.draw(g2);
+        }
 
         beetle.draw(g2);
 
@@ -96,11 +91,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void update() {
         beetle.update();
-        bee1.update();
-        bee2.update();
-        bee3.update();
-        bee4.update();
-        bee5.update();
+        for (AIGameEntity entity: aiGameEntities) {
+            entity.update();
+        }
     }
 
     @Override
@@ -127,10 +120,5 @@ public class GamePanel extends JPanel implements Runnable{
             }
             nextDrawTime += drawInterval;
         }
-    }
-
-    public void playSoundEffect(int i) {
-        sound.setFile(i);
-        sound.play();
     }
 }
