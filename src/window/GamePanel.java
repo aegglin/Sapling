@@ -65,7 +65,8 @@ public class GamePanel extends JPanel implements Runnable{
             Bee bee = new Bee(this, user);
             aiGameEntities[i] = bee;
         }
-
+        GameSound ambiance = gameSoundManager.getSound("ambiance");
+        gameSoundManager.play(ambiance, true);
         gameThread.start();
     }
 

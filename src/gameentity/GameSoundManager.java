@@ -13,8 +13,7 @@ public class GameSoundManager {
     public GameSoundManager() {
         gameSounds = new HashMap<>();
         loadAudioFile("bees", "assets/sounds/bees.wav");
-        loadAudioFile("flies", "assets/sounds/flies.wav");
-        loadAudioFile("woodpecker", "assets/sounds/woodpecker.wav");
+        loadAudioFile("ambiance", "assets/sounds/ambiance.wav");
     }
 
     public GameSound getSound(String name) {

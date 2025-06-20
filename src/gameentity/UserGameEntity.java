@@ -21,7 +21,7 @@ public class UserGameEntity extends GameEntity {
         super(worldX, worldY, speed, direction, gamePanel);
 
         collisionArea = new Rectangle(10, 8, 16, 16);
-        hearingArea = new Rectangle(10, 8, 5, 5);
+        hearingArea = new Rectangle(10, 8, 16, 8);
         isInEarshot = false;
 
         int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
@@ -69,13 +69,11 @@ public class UserGameEntity extends GameEntity {
             }
 
             if (isInEarshot) {
-
                 // if there are two sounds, determine which one to play
                 int maxEarshotTileNumber = Math.max(earshotTileNumbers[0], earshotTileNumbers[1]);
                 MapTile hearingTile = super.gamePanel.mapTileHandler.mapTiles[maxEarshotTileNumber];
 
                 super.gamePanel.gameSoundManager.play(hearingTile.sound, false);
-
             }
 
             // count the number of times update has been called with the current sprite
