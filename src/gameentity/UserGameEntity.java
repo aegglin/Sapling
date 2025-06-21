@@ -21,7 +21,7 @@ public class UserGameEntity extends GameEntity {
         super(worldX, worldY, speed, direction, gamePanel);
 
         collisionArea = new Rectangle(10, 8, 16, 16);
-        hearingArea = new Rectangle(10, 8, 16, 8);
+        hearingArea = new Rectangle(10, 8, 16, 16);
         isInEarshot = false;
 
         int offset = GamePanel.TILE_SIZE / 2; // Since the drawing starts at the top left corner of the tile
