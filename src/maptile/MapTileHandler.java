@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Should each tile have a boolean for if the beetle is on it?
+// and then have a method for getting its neighbors (in a certain radius, keeping in mind that tiles on the edge may not have the full radius)
+
 public class MapTileHandler {
 
     public int[][] mapTileNumbers;

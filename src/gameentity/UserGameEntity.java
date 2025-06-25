@@ -72,8 +72,8 @@ public class UserGameEntity extends GameEntity {
                 // if there are two sounds, determine which one to play
                 int maxEarshotTileNumber = Math.max(earshotTileNumbers[0], earshotTileNumbers[1]);
                 MapTile hearingTile = super.gamePanel.mapTileHandler.mapTiles[maxEarshotTileNumber];
-
                 super.gamePanel.gameSoundManager.play(hearingTile.sound, false);
+                super.gamePanel.userInterface.showMessage("Bees are buzzing");
             }
 
             // count the number of times update has been called with the current sprite

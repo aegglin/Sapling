@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     public MapTileHandler mapTileHandler;
     public MapTileCollisionHandler mapTileCollisionHandler;
     public GameSoundManager gameSoundManager;
+    public UserInterface userInterface;
 
     public UserGameEntity user;
 
@@ -44,7 +45,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     private Thread gameThread;
 
+    public boolean isGameOver;
+
     public GamePanel() {
+        isGameOver = false;
         gameThread = new Thread(this);
         this.addKeyListener(keyHandler);
 
@@ -65,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
             Bee bee = new Bee(this, user);
             aiGameEntities[i] = bee;
         }
+        userInterface = new UserInterface(this);
         GameSound ambiance = gameSoundManager.getSound("ambiance");
         gameSoundManager.play(ambiance, true);
         gameThread.start();
@@ -72,6 +77,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static KeyHandler getKeyHandler() {
         return keyHandler;
+    }
+
+    public void endGame() {
+        gameThread = null;
     }
 
     public void paintComponent(Graphics g) {
@@ -86,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         beetle.draw(g2);
+        userInterface.draw(g2);
 
         g2.dispose();
     }
