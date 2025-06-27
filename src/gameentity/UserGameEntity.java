@@ -71,8 +71,10 @@ public class UserGameEntity extends GameEntity {
             if (isInEarshot) {
                 // if there are two sounds, determine which one to play
                 int maxEarshotTileNumber = Math.max(earshotTileNumbers[0], earshotTileNumbers[1]);
+                System.out.println("earshot max: " + maxEarshotTileNumber);
                 MapTile hearingTile = super.gamePanel.mapTileHandler.mapTiles[maxEarshotTileNumber];
-                super.gamePanel.gameSoundManager.play(hearingTile.sound, false);
+                System.out.println(hearingTile.name);
+                super.gamePanel.gameSoundHandler.play(hearingTile.sound, false);
                 super.gamePanel.userInterface.showMessage("Bees are buzzing");
             }
 
@@ -80,7 +82,7 @@ public class UserGameEntity extends GameEntity {
             spriteUpdateCount++;
 
             // switch sprites if it has been the threshold number of frames with the other one
-            if (spriteUpdateCount > SPRITE_SWITCH_THRESHOLD) {
+            if (spriteUpdateCount > SPRITE_FRAME_SWITCH_THRESHOLD) {
                 currentSpriteNumber = currentSpriteNumber == 1 ? 2 : 1;
                 spriteUpdateCount = 0;
             }

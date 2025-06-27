@@ -80,7 +80,7 @@ public class AIGameEntity extends GameEntity{
             spriteUpdateCount++;
 
             // switch sprites if it has been the threshold number of frames with the other one
-            if (spriteUpdateCount > SPRITE_SWITCH_THRESHOLD) {
+            if (spriteUpdateCount > SPRITE_FRAME_SWITCH_THRESHOLD) {
 
                 double specialImageProb = Math.random();
 

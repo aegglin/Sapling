@@ -38,9 +38,9 @@ public class MapTileHandler {
         loadTileImage("assets/tiles/Underbrush.png", "Underbrush", false, false, null);
         loadTileImage("assets/tiles/Shrub_Underbrush.png", "ShrubUnderbrush", true, false, null);
         loadTileImage("assets/tiles/OrangeFlower.png", "OrangeFlower", false, false, null);
-        loadTileImage("assets/tiles/Tree1_Flies1.png", "TreeFlies1", true, true, gamePanel.gameSoundManager.getSound("flies"));
-        loadTileImage("assets/tiles/Tree1_Beehive1.png", "TreeBeehive1", true, true, gamePanel.gameSoundManager.getSound("bees"));
-        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", "TreeWoodpecker1", true, true, gamePanel.gameSoundManager.getSound("woodpecker"));
+        loadTileImage("assets/tiles/Tree1_Flies1.png", "TreeFlies1", true, true, gamePanel.gameSoundHandler.getSound("flies"));
+        loadTileImage("assets/tiles/Tree1_Beehive1.png", "TreeBeehive1", true, true, gamePanel.gameSoundHandler.getSound("bees"));
+        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", "TreeWoodpecker1", true, false, null);
         loadMap("assets/maps/map1.txt");
     }
 

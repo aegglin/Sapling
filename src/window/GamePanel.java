@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     private static final KeyHandler keyHandler = new KeyHandler();
     public MapTileHandler mapTileHandler;
     public MapTileCollisionHandler mapTileCollisionHandler;
-    public GameSoundManager gameSoundManager;
+    public GameSoundHandler gameSoundHandler;
     public UserInterface userInterface;
 
     public UserGameEntity user;
@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.setFocusable(true);
 
-        gameSoundManager = new GameSoundManager();
+        gameSoundHandler = new GameSoundHandler();
         mapTileHandler = new MapTileHandler(this);
         mapTileCollisionHandler = new MapTileCollisionHandler(this);
 
@@ -70,8 +70,8 @@ public class GamePanel extends JPanel implements Runnable{
             aiGameEntities[i] = bee;
         }
         userInterface = new UserInterface(this);
-        GameSound ambiance = gameSoundManager.getSound("ambiance");
-        gameSoundManager.play(ambiance, true);
+        GameSound ambiance = gameSoundHandler.getSound("ambiance");
+        gameSoundHandler.play(ambiance, true);
         gameThread.start();
     }
 

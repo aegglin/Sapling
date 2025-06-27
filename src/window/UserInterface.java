@@ -53,7 +53,7 @@ public class UserInterface {
             g2.setColor(Color.WHITE);
 
             timePlayed += (double)1/60; // called 60 times per second
-            g2.drawString("Time: " + decimalFormatter.format(timePlayed), GamePanel.TILE_SIZE*11, 65);
+            g2.drawString("Time: " + decimalFormatter.format(timePlayed), GamePanel.TILE_SIZE*14, 15);
 
             if (hasMessage) {
                 g2.drawString(message, GamePanel.TILE_SIZE/2, GamePanel.TILE_SIZE*2);

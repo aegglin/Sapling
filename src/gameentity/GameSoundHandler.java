@@ -6,11 +6,11 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.HashMap;
 
-public class GameSoundManager {
+public class GameSoundHandler {
 
     private HashMap<String, GameSound> gameSounds;
 
-    public GameSoundManager() {
+    public GameSoundHandler() {
         gameSounds = new HashMap<>();
         loadAudioFile("bees", "assets/sounds/bees.wav");
         loadAudioFile("ambiance", "assets/sounds/ambiance.wav");
