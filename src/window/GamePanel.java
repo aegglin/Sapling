@@ -45,10 +45,11 @@ public class GamePanel extends JPanel implements Runnable{
 
     private Thread gameThread;
 
-    public boolean isGameOver;
+    public boolean isGameOver, isDebugMode;
 
     public GamePanel() {
         isGameOver = false;
+        isDebugMode = false;
         gameThread = new Thread(this);
         this.addKeyListener(keyHandler);
 
@@ -87,6 +88,12 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.WHITE);
+
+        long drawingStartTime = 0;
+        if (isDebugMode) {
+            drawingStartTime = System.nanoTime();
+        }
+
         g2.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         mapTileHandler.drawAll(g2);
@@ -97,10 +104,19 @@ public class GamePanel extends JPanel implements Runnable{
         beetle.draw(g2);
         userInterface.draw(g2);
 
+        if (isDebugMode) {
+            long drawingEndtime = System.nanoTime();
+            long drawingTimeElapsed = drawingEndtime - drawingStartTime;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Drawing time elapsed: " + drawingTimeElapsed, 10, 400);
+            System.out.println("Drawing time elapsed: " + drawingTimeElapsed);
+        }
+
         g2.dispose();
     }
 
     public void update() {
+        isDebugMode = keyHandler.isDebugMode;
         beetle.update();
         for (AIGameEntity entity: aiGameEntities) {
             entity.update();

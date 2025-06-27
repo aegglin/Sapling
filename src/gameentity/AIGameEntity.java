@@ -2,8 +2,7 @@ package gameentity;
 
 import window.GamePanel;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -26,8 +25,10 @@ public class AIGameEntity extends GameEntity{
 
     public AIGameEntity(GamePanel gamePanel, UserGameEntity userGameEntity) {
         super(gamePanel);
-        int randX = random.nextInt(GamePanel.WORLD_WIDTH);
-        int randY = random.nextInt(GamePanel.WORLD_HEIGHT);
+        // subtract tile size to ensure there isn't an array index out of bounds error with the hearing area
+        int randX = random.nextInt(GamePanel.WORLD_WIDTH-GamePanel.TILE_SIZE);
+        int randY = random.nextInt(GamePanel.WORLD_HEIGHT-GamePanel.TILE_SIZE);
+
         int randSpeed = random.nextInt(10);
         Direction[] directions = Direction.values();
         Direction randDirection = directions[GamePanel.random.nextInt(directions.length)];
@@ -148,6 +149,10 @@ public class AIGameEntity extends GameEntity{
                         break;
                 }
                 g2.drawImage(image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                if (super.gamePanel.isDebugMode) {
+                    g2.setColor(Color.red);
+                    g2.drawRect(cameraViewX + collisionArea.x, cameraViewY + collisionArea.y, collisionArea.width, collisionArea.height);
+                }
         }
     }
     @Override

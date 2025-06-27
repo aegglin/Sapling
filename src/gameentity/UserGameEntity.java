@@ -4,6 +4,7 @@ import maptile.MapTile;
 import window.GamePanel;
 import window.KeyHandler;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -125,6 +126,10 @@ public class UserGameEntity extends GameEntity {
                 break;
         }
         g2.drawImage(image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+        if (super.gamePanel.isDebugMode) {
+            g2.setColor(Color.red);
+            g2.drawRect(cameraViewX + collisionArea.x, cameraViewY + collisionArea.y, collisionArea.width, collisionArea.height);
+        }
     }
 
     @Override
