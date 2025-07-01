@@ -1,6 +1,7 @@
 package maptile;
 
 import gameentity.GameSound;
+import gameentity.ImageScaler;
 import window.GamePanel;
 
 import java.awt.Graphics2D;
@@ -30,35 +31,37 @@ public class MapTileHandler {
         mapTileNumbers = new int[GamePanel.NUMBER_WORLD_COLS][GamePanel.NUMBER_WORLD_ROWS];
         mapTiles = new MapTile[NUM_TILES];
         currentTileIndex = 0;
-        loadTileImage("assets/tiles/Grass.png", "Grass", false, false, null);
-        loadTileImage("assets/tiles/Tree1.png", "Tree1", true, false, null);
-        loadTileImage("assets/tiles/Tree2.png", "Tree2", true, false, null);
-        loadTileImage("assets/tiles/Tree3.png", "Tree3",true, false, null);
-        loadTileImage("assets/tiles/Shrub.png", "Shrub",true, false, null);
-        loadTileImage("assets/tiles/Underbrush.png", "Underbrush", false, false, null);
-        loadTileImage("assets/tiles/Shrub_Underbrush.png", "ShrubUnderbrush", true, false, null);
-        loadTileImage("assets/tiles/OrangeFlower.png", "OrangeFlower", false, false, null);
-        loadTileImage("assets/tiles/Tree1_Flies1.png", "TreeFlies1", true, true, gamePanel.gameSoundHandler.getSound("flies"));
-        loadTileImage("assets/tiles/Tree1_Beehive1.png", "TreeBeehive1", true, true, gamePanel.gameSoundHandler.getSound("bees"));
-        loadTileImage("assets/tiles/Tree1_Woodpecker1.png", "TreeWoodpecker1", true, false, null);
-        loadMap("assets/maps/map1.txt");
+        loadTileImage("Grass.png", "Grass", false, false, null);
+        loadTileImage("Tree1.png", "Tree1", true, false, null);
+        loadTileImage("Tree2.png", "Tree2", true, false, null);
+        loadTileImage("Tree3.png", "Tree3",true, false, null);
+        loadTileImage("Shrub.png", "Shrub",true, false, null);
+        loadTileImage("Underbrush.png", "Underbrush", false, false, null);
+        loadTileImage("Shrub_Underbrush.png", "ShrubUnderbrush", true, false, null);
+        loadTileImage("OrangeFlower.png", "OrangeFlower", false, false, null);
+        loadTileImage("Tree1_Flies1.png", "TreeFlies1", true, true, gamePanel.gameSoundHandler.getSound("flies"));
+        loadTileImage("Tree1_Beehive1.png", "TreeBeehive1", true, true, gamePanel.gameSoundHandler.getSound("bees"));
+        loadTileImage("Tree1_Woodpecker1.png", "TreeWoodpecker1", true, false, null);
+        loadMap("map1.txt");
     }
 
     private void loadTileImage(String imageFileName, String name, boolean isSolid, boolean hasSound, GameSound sound) {
         BufferedImage tileImage = null;
+        BufferedImage scaledImage = null;
         try {
-            tileImage = ImageIO.read(new File(imageFileName));
+            tileImage = ImageIO.read(new File("assets/tiles/" + imageFileName));
+            scaledImage = ImageScaler.scaleImage(tileImage, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MapTile tile = new MapTile(name, tileImage, isSolid, hasSound, sound);
+        MapTile tile = new MapTile(name, scaledImage, isSolid, hasSound, sound);
         mapTiles[currentTileIndex] = tile;
         currentTileIndex++;
     }
 
     public void loadMap(String filePath) {
         try {
-            File mapFile = new File(filePath);
+            File mapFile = new File("assets/maps/" + filePath);
             BufferedReader br = new BufferedReader(new FileReader(mapFile));
 
             int col = 0;
@@ -99,7 +102,7 @@ public class MapTileHandler {
                         worldX - GamePanel.TILE_SIZE < gamePanel.user.worldX + gamePanel.user.cameraViewX &&
                         worldY + GamePanel.TILE_SIZE > gamePanel.user.worldY - gamePanel.user.cameraViewY &&
                         worldY - GamePanel.TILE_SIZE < gamePanel.user.worldY + gamePanel.user.cameraViewY) {
-                    g2.drawImage(mapTiles[tileNumber].image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                    g2.drawImage(mapTiles[tileNumber].image, cameraViewX, cameraViewY, null);
                 }
             }
         }

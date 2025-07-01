@@ -59,25 +59,25 @@ public abstract class GameEntity {
                            String left3FileName) {
 
         try {
-            up1 = ImageIO.read(new File("assets/" + up1FileName));
-            up2 = ImageIO.read(new File("assets/" + up2FileName));
+            up1 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + up1FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+            up2 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + up2FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             if (up3FileName != null) {
-                up3 = ImageIO.read(new File("assets/" + up3FileName));
+                up3 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + up3FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             }
-            down1 = ImageIO.read(new File("assets/" + down1FileName));
-            down2 = ImageIO.read(new File("assets/" + down2FileName));
+            down1 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + down1FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+            down2 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + down2FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             if (down3FileName != null) {
-                down3 = ImageIO.read(new File("assets/" + down3FileName));
+                down3 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + down3FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             }
-            right1 = ImageIO.read(new File("assets/" + right1FileName));
-            right2 = ImageIO.read(new File("assets/" + right2FileName));
+            right1 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + right1FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+            right2 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + right2FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             if (right3FileName != null) {
-                right3 = ImageIO.read(new File("assets/" + right3FileName));
+                right3 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + right3FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             }
-            left1 = ImageIO.read(new File("assets/" + left1FileName));
-            left2 = ImageIO.read(new File("assets/" + left2FileName));
+            left1 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + left1FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
+            left2 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + left2FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             if (left3FileName != null) {
-                left3 = ImageIO.read(new File("assets/" + left3FileName));
+                left3 = ImageScaler.scaleImage(ImageIO.read(new File("assets/" + left3FileName)), GamePanel.TILE_SIZE, GamePanel.TILE_SIZE);
             }
         } catch (IOException e) {
             e.printStackTrace();

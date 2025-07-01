@@ -148,7 +148,7 @@ public class AIGameEntity extends GameEntity{
                         }
                         break;
                 }
-                g2.drawImage(image, cameraViewX, cameraViewY, GamePanel.TILE_SIZE, GamePanel.TILE_SIZE, null);
+                g2.drawImage(image, cameraViewX, cameraViewY, null);
                 if (super.gamePanel.isDebugMode) {
                     g2.setColor(Color.red);
                     g2.drawRect(cameraViewX + collisionArea.x, cameraViewY + collisionArea.y, collisionArea.width, collisionArea.height);
