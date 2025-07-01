@@ -30,28 +30,29 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int WORLD_WIDTH = TILE_SIZE * NUMBER_WORLD_ROWS;
     public static final int WORLD_HEIGHT = TILE_SIZE * NUMBER_WORLD_COLS;
 
-    public static final Random random = new Random();
+    public final static int PLAY_STATE = 1;
+    public final static int PAUSE_STATE = 2;
+    public int gameState;
 
-    private static final KeyHandler keyHandler = new KeyHandler();
+    public static final Random random = new Random();
+    public final KeyHandler keyHandler;
+
     public MapTileHandler mapTileHandler;
     public MapTileCollisionHandler mapTileCollisionHandler;
     public GameSoundHandler gameSoundHandler;
     public UserInterface userInterface;
 
     public UserGameEntity user;
-
     private AIGameEntity[] aiGameEntities;
     private Beetle beetle;
+    public boolean isGameOver, isDebugMode;
 
     private Thread gameThread;
-
-    public boolean isGameOver, isDebugMode;
 
     public GamePanel() {
         isGameOver = false;
         isDebugMode = false;
         gameThread = new Thread(this);
-        this.addKeyListener(keyHandler);
 
         // JPanel methods
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -62,6 +63,9 @@ public class GamePanel extends JPanel implements Runnable{
         gameSoundHandler = new GameSoundHandler();
         mapTileHandler = new MapTileHandler(this);
         mapTileCollisionHandler = new MapTileCollisionHandler(this);
+        keyHandler = new KeyHandler(this);
+
+        this.addKeyListener(keyHandler);
 
         beetle = new Beetle(1000, 1000, 4, Direction.DOWN, this);
         user = beetle;
@@ -73,11 +77,10 @@ public class GamePanel extends JPanel implements Runnable{
         userInterface = new UserInterface(this);
         GameSound ambiance = gameSoundHandler.getSound("ambiance");
         gameSoundHandler.play(ambiance, true);
-        gameThread.start();
-    }
 
-    public static KeyHandler getKeyHandler() {
-        return keyHandler;
+        gameState = PLAY_STATE;
+
+        gameThread.start();
     }
 
     public void endGame() {
@@ -116,10 +119,14 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update() {
-        isDebugMode = keyHandler.isDebugMode;
-        beetle.update();
-        for (AIGameEntity entity: aiGameEntities) {
-            entity.update();
+
+        if (gameState == PLAY_STATE) {
+            beetle.update();
+            for (AIGameEntity entity: aiGameEntities) {
+                entity.update();
+            }
+        } else if (gameState == PAUSE_STATE) {
+
         }
     }
 

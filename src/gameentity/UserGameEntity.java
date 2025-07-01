@@ -12,8 +12,6 @@ import java.awt.image.BufferedImage;
 public class UserGameEntity extends GameEntity {
 
     public GamePanel gamePanel;
-
-    protected static final KeyHandler keyHandler = GamePanel.getKeyHandler();
     public final int cameraViewX, cameraViewY;
     public Rectangle hearingArea;
     public boolean isInEarshot;
@@ -33,15 +31,15 @@ public class UserGameEntity extends GameEntity {
 
     @Override
     public void update() {
-        if (keyHandler.keyPressed) {
+        if (super.gamePanel.keyHandler.keyPressed) {
             // Get the direction of movement
-            if (keyHandler.upPressed) {
+            if (super.gamePanel.keyHandler.upPressed) {
                 direction = Direction.UP;
-            } else if (keyHandler.downPressed) {
+            } else if (super.gamePanel.keyHandler.downPressed) {
                 direction = Direction.DOWN;
-            } else if (keyHandler.leftPressed) {
+            } else if (super.gamePanel.keyHandler.leftPressed) {
                 direction = Direction.LEFT;
-            } else if (keyHandler.rightPressed) {
+            } else if (super.gamePanel.keyHandler.rightPressed) {
                 direction = Direction.RIGHT;
             }
 

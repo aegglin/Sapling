@@ -5,8 +5,13 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
+    public GamePanel gamePanel;
     public boolean upPressed, downPressed, leftPressed, rightPressed, keyPressed;
     public boolean isDebugMode;
+
+    public KeyHandler(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -26,10 +31,15 @@ public class KeyHandler implements KeyListener {
         } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
             keyPressed = true;
             rightPressed = true;
-        }
-
-        if (keyCode == KeyEvent.VK_T) {
+        } else if (keyCode == KeyEvent.VK_T) {
             isDebugMode = !isDebugMode;
+            gamePanel.isDebugMode = isDebugMode;
+        } else if (keyCode == KeyEvent.VK_P) {
+            if (gamePanel.gameState == GamePanel.PLAY_STATE) {
+                gamePanel.gameState = GamePanel.PAUSE_STATE;
+            } else if (gamePanel.gameState == GamePanel.PAUSE_STATE) {
+                gamePanel.gameState = GamePanel.PLAY_STATE;
+            }
         }
     }
 
