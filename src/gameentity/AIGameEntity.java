@@ -97,6 +97,10 @@ public class AIGameEntity extends GameEntity{
             }
     }
 
+    public void setAction() {
+
+    }
+
     @Override
     public void draw(Graphics2D g2) {
 
